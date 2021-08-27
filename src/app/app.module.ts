@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { Movie, MovieSchema } from '../schemas/movie.schema';
 import { UserController } from 'src/users/users.controller';
 import { UsersModule } from 'src/users/users.module';
+import { AuthModule } from 'src/auth/auth.module';
 require('dotenv').config();
 
 const username = process.env.DB_USER;
@@ -17,6 +18,7 @@ const mongoURI = `mongodb+srv://${username}:${password}@cluster0.vizvr.mongodb.n
 @Module({
   imports: [
     UsersModule,
+    AuthModule,
     MongooseModule.forRoot(mongoURI),
     MongooseModule.forFeature([{ name: Movie.name, schema: MovieSchema }]),
   ],
