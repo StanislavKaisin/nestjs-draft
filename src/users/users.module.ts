@@ -10,5 +10,6 @@ import { UserService } from './users.service';
   imports: [
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
   ],
+  exports: [UserService],
 })
 export class UsersModule {}

@@ -1,12 +1,11 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { Movie, MovieSchema } from '../schemas/movie.schema';
-import { UserController } from 'src/users/users.controller';
 import { UsersModule } from 'src/users/users.module';
 import { AuthModule } from 'src/auth/auth.module';
+
 require('dotenv').config();
 
 const username = process.env.DB_USER;

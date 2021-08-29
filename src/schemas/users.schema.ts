@@ -7,7 +7,6 @@ export type UserDocument = User & Document;
 export class User {
   @Prop()
   name: string;
-
   @Prop()
   password: string;
 }
