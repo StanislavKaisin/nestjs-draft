@@ -7,12 +7,7 @@ import { UsersModule } from 'src/users/users.module';
 import { AuthModule } from 'src/auth/auth.module';
 
 require('dotenv').config();
-
-const username = process.env.DB_USER;
-const password = process.env.DB_PASS;
-const db = process.env.DB_NAME;
-
-const mongoURI = `mongodb+srv://${username}:${password}@cluster0.vizvr.mongodb.net/${db}?retryWrites=true&w=majority`;
+const mongoURI = process.env.mongoURI;
 
 @Module({
   imports: [
