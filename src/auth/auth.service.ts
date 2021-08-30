@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto } from 'src/dto/create-user.dto';
 import { UserService } from 'src/users/users.service';
+import { isMatch } from 'src/utils/encryption';
 
 @Injectable()
 export class AuthService {
@@ -11,13 +12,18 @@ export class AuthService {
   ) {}
 
   async validateUser(username: string, pass: string): Promise<any> {
-    const user = await this.usersService.findOne(username);
+    try {
+      const user = await this.usersService.findOne(username);
+      const comparePasswords = await isMatch(user.password, pass);
 
-    if (user && user.password === pass) {
-      const { password, ...result } = user;
-      return result;
+      if (user && comparePasswords) {
+        const { password, ...result } = user;
+        return result;
+      }
+      return null;
+    } catch (error) {
+      throw new UnauthorizedException(error);
     }
-    return null;
   }
 
   async login(user: CreateUserDto) {

@@ -1,4 +1,9 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  InternalServerErrorException,
+  UseGuards,
+} from '@nestjs/common';
 import { AppService } from './app.service';
 import { Movie } from '../schemas/movie.schema';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
@@ -11,6 +16,10 @@ export class AppController {
   @UseGuards(JwtAuthGuard)
   @Get()
   findAll(): Promise<Movie[]> {
-    return this.appService.findAll();
+    try {
+      return this.appService.findAll();
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
   }
 }
