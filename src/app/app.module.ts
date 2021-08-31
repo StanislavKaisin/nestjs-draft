@@ -5,15 +5,14 @@ import { AppService } from './app.service';
 import { Movie, MovieSchema } from '../schemas/movie.schema';
 import { UsersModule } from 'src/users/users.module';
 import { AuthModule } from 'src/auth/auth.module';
-
-require('dotenv').config();
-const mongoURI = process.env.mongoURI;
+import { AppConfigModule } from 'src/config/configuration.module';
 
 @Module({
   imports: [
     UsersModule,
     AuthModule,
-    MongooseModule.forRoot(mongoURI),
+    AppConfigModule,
+    MongooseModule.forRoot(process.env.MONGO_URI),
     MongooseModule.forFeature([{ name: Movie.name, schema: MovieSchema }]),
   ],
   controllers: [AppController],
