@@ -15,7 +15,7 @@ export class AuthController {
   @Post('/login')
   async login(@Request() req) {
     try {
-      return this.authService.login(req.user);
+      return await this.authService.login(req.body);
     } catch (error) {
       throw new InternalServerErrorException(error);
     }
